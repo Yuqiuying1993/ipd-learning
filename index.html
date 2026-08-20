@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IPD × 采购 · 每日学习室</title>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- manifest 用当日日期做缓存破坏，保证新一天的课程立刻可见 -->
+  <script>
+    window.__IPD_CB = new Date().toISOString().slice(0, 10).replace(/-/g, "");
+    document.write('<script src="data/manifest.js?_cb=' + window.__IPD_CB + '"><\/script>');
+  </script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">📘</span>
+      <div>
+        <div class="brand-title">IPD × 采购 · 每日学习室</div>
+        <div class="brand-sub">给审计人的产品与采购通识课 · 网页版</div>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button class="ghost-btn" id="teamBoardBtn" title="打开团队排行榜（飞书多维表格，需先对团队共享）">🏆 团队榜</button>
+      <button class="ghost-btn" id="exportBtn" title="导出学习档案（分数+心得+简答作答）">📦 导出</button>
+      <button class="ghost-btn" id="importBtn" title="从备份文件恢复学习档案">📥 导入</button>
+      <input type="file" id="importFile" accept="application/json" hidden />
+      <span class="backup-badge" id="backupBadge" title="每次保存会自动把整套档案下载到你的下载文件夹；换网址后用「📥 导入」选中该文件即可恢复">☁️ 自动备份已开启</span>
+      <div class="progress-pill" id="progressPill">加载中…</div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-head">
+        <span>课程日历</span>
+        <button class="ghost-btn" id="showAllRefBtn" title="查看全部心得">💡 全部心得</button>
+      </div>
+      <nav class="day-list" id="dayList"></nav>
+      <div class="sidebar-tip">
+        内容每日 09:00 由「采购审计官」专家生成并经飞书推送，同时写入本网页，便于随时复习。
+      </div>
+    </aside>
+
+    <main class="content" id="content">
+      <div class="today-banner" id="todayBanner" hidden>
+        <div class="today-left">
+          <span class="today-label">📌 今日主题</span>
+          <div class="today-title" id="todayTitle"></div>
+          <div class="today-one" id="todayOne"></div>
+        </div>
+        <button class="btn btn-primary" id="startTodayBtn">开始学习</button>
+      </div>
+
+      <div class="empty-state" id="emptyState">
+        <div class="empty-emoji">📚</div>
+        <p>从左侧选择一天开始学习</p>
+      </div>
+
+      <article class="lesson" id="lesson" hidden>
+        <div class="lesson-head">
+          <div>
+            <div class="lesson-tag" id="lessonTag"></div>
+            <h1 class="lesson-title" id="lessonTitle"></h1>
+          </div>
+          <div class="lesson-date" id="lessonDate"></div>
+        </div>
+
+        <nav class="tabs" id="tabs">
+          <button class="tab active" data-tab="learning">📖 学习</button>
+          <button class="tab" data-tab="exam">✏️ 考试</button>
+          <button class="tab" data-tab="case">🔍 案例</button>
+          <button class="tab" data-tab="resources">📚 拓展</button>
+          <button class="tab" data-tab="reflection">💡 心得</button>
+        </nav>
+
+        <section class="panel" id="panel-learning"></section>
+        <section class="panel" id="panel-exam" hidden></section>
+        <section class="panel" id="panel-case" hidden></section>
+        <section class="panel" id="panel-resources" hidden></section>
+        <section class="panel" id="panel-reflection" hidden></section>
+      </article>
+    </main>
+  </div>
+
+  <!-- 全部心得弹窗 -->
+  <div class="modal" id="allRefModal" hidden>
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3>全部学习心得</h3>
+        <button class="ghost-btn" id="closeAllRef">✕</button>
+      </div>
+      <div class="modal-body" id="allRefBody"></div>
+    </div>
+  </div>
+
+  <!-- 上报成绩弹窗 -->
+  <div class="modal" id="reportModal" hidden>
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3>🏆 上报成绩到团队榜</h3>
+        <button class="ghost-btn" id="closeReport">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="ref-hint">考完试后把成绩上报到团队榜，就能和同事一起排名。点击「复制并打开榜单」会自动复制一段文字并打开飞书表格，你粘贴成一行即可。</p>
+        <div class="report-summary" id="reportSummary"></div>
+        <input class="short-input" id="reportName" placeholder="你的姓名" style="width:100%;margin-top:10px;padding:8px;border:1px solid var(--line);border-radius:8px;font-family:inherit;" />
+        <input class="short-input" id="reportDept" placeholder="部门（选填）" style="width:100%;margin-top:8px;padding:8px;border:1px solid var(--line);border-radius:8px;font-family:inherit;" />
+        <div class="exam-actions">
+          <button class="btn btn-primary" id="copyReport">复制并打开榜单</button>
+          <span class="ref-saved" id="reportCopied"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 导入/恢复档案弹窗 -->
+  <div class="modal" id="importModal" hidden>
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3>📥 恢复学习档案</h3>
+        <button class="ghost-btn" id="closeImport">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="ref-hint">换网址后成绩/心得找不到，用这个就能找回来。系统已自动把档案下载成 <b>IPD学习档案-自动备份.json</b>（在你的下载文件夹），直接「选择备份文件」选中它即可恢复。两种方式任选其一：</p>
+        <p><b>方式一 · 从之前导出的备份文件</b></p>
+        <button class="btn btn-primary" id="pickFileBtn">选择备份文件（.json）</button>
+        <input type="file" id="importFile" accept="application/json" hidden />
+        <hr style="margin:16px 0;border:none;border-top:1px dashed var(--line)" />
+        <p><b>方式二 · 直接粘贴 DevTools 复制的内容（推荐，最省事）</b></p>
+        <ol class="ref-hint" style="padding-left:18px;margin:6px 0 10px">
+          <li>在<b>旧网址</b>打开网页，按 <code>F12</code> → Console，输入 <code>copy(JSON.stringify(localStorage))</code> 回车（自动复制全部成绩/心得）。</li>
+          <li>把下面文本框<b>粘贴</b>进去，点「从粘贴内容导入」。</li>
+        </ol>
+        <textarea id="importText" rows="6" class="short-input" style="width:100%;padding:8px;border:1px solid var(--line);border-radius:8px;font-family:ui-monospace,Consolas,monospace;font-size:12px;" placeholder='粘贴此处，例如：{"ipd_score_2026-08-15":"{...}","ipd_reflection_2026-08-15":"{...}"}'></textarea>
+        <div class="exam-actions" style="margin-top:10px">
+          <button class="btn btn-primary" id="importTextBtn">从粘贴内容导入</button>
+          <span class="ref-saved" id="importMsg"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
