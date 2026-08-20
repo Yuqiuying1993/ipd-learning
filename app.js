@@ -292,7 +292,7 @@
       var idx = ta.dataset.abs;
       var ans = loadAns(d.date);
       if (ans[idx] != null) ta.value = ans[idx];
-      ta.oninput = function () { var m = loadAns(d.date); m[idx] = ta.value; saveAns(d.date, m); scheduleAutoBackup(); };
+      ta.oninput = function () { var m = loadAns(d.date); m[idx] = ta.value; saveAns(d.date, m); };
     });
   }
 
@@ -416,7 +416,6 @@
         localStorage.setItem(refKey(date), JSON.stringify({ text: text, at: Date.now() }));
         $("refSaved").textContent = "已保存：" + new Date().toLocaleString();
         renderSidebar();
-        scheduleAutoBackup();
       } catch (e) { $("refSaved").textContent = "保存失败（浏览器存储不可用）"; }
     };
   }
@@ -587,7 +586,7 @@
     try { localStorage.setItem("ipd_lastbackup_at", String(Date.now())); } catch (e) {}
     if (_backupTimer) clearTimeout(_backupTimer);
     _backupTimer = setTimeout(function () {
-      try { triggerBackupDownload(); showBackupToast(); } catch (e) {}
+      try { triggerBackupDownload(); } catch (e) {}
     }, 1500);
   }
 
