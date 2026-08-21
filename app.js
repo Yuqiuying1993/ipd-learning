@@ -3,6 +3,7 @@
 
   var DAYS = window.IPD_DAYS || {};
   var MANIFEST = window.IPD_MANIFEST || [];
+  var PLAN = window.IPD_PLAN || [];
   var currentDate = null;
   var BATCH = 5;            // 每关题数
   var viewBatch = 0;        // 当前解锁到的批次（0-based）
@@ -52,7 +53,7 @@
     }
     DAYS = window.IPD_DAYS || {};
     renderSidebar();
-    renderCalendar(); renderRecent30();
+    renderCalendar(); renderRecent30(); renderPlan();
     updateProgress();
 
     var target = getUrlDate();
@@ -154,6 +155,52 @@
         c.style.cursor = "pointer";
         c.onclick = function () { openDay(d); };
       }
+    });
+  }
+
+  // ---------- 30 天学习计划（来源：IPD采购学习-近30天日历.md，纯展示计划 + 叠加实际进度） ----------
+  function planDayOf(date) {
+    for (var i = 0; i < PLAN.length; i++) if (PLAN[i].date === date) return PLAN[i].day;
+    return null;
+  }
+
+  function renderPlan() {
+    var box = $("planBox");
+    if (!box || !PLAN.length) return;
+    var today = todayStr();
+    var todayDay = planDayOf(today);
+    var html = '<div class="plan-head">' +
+      '<div class="plan-title">📋 30 天学习计划</div>' +
+      '<div class="plan-sub">第 1 天 = 2026-08-13' + (todayDay ? ' · 今日 = Day ' + todayDay : '') + ' · 已学 ' +
+      PLAN.filter(function (p) { return dayLevel(p.date) > 0; }).length + '/' + PLAN.length + ' 天</div>' +
+      '</div>';
+    var curPhase = null;
+    PLAN.forEach(function (p) {
+      if (p.phase !== curPhase) {
+        curPhase = p.phase;
+        html += '<div class="plan-phase">' + escapeHtml(curPhase) + '</div>';
+      }
+      var lv = dayLevel(p.date);
+      var sc = loadScore(p.date);
+      var isToday = (p.date === today);
+      var studied = lv > 0;
+      var status = isToday ? "today" : (studied ? "done" : "future");
+      var statusLabel;
+      if (isToday) statusLabel = "今日";
+      else if (studied) statusLabel = (sc && sc.percent != null) ? (sc.percent + "%") : "已学";
+      else statusLabel = "待学";
+      var clickable = studied;   // 未来天无内容，不可跳转
+      html += '<div class="plan-row ' + status + (clickable ? " clickable" : "") + '"' +
+        (clickable ? ' data-date="' + p.date + '"' : '') + '>' +
+        '<span class="plan-day">Day ' + p.day + '</span>' +
+        '<span class="plan-date">' + p.date.slice(5) + '</span>' +
+        '<span class="plan-theme">' + escapeHtml(p.title) + '</span>' +
+        '<span class="plan-status ' + status + '">' + statusLabel + '</span>' +
+        '</div>';
+    });
+    box.innerHTML = html;
+    box.querySelectorAll("[data-date]").forEach(function (r) {
+      r.onclick = function () { openDay(r.dataset.date); };
     });
   }
 
@@ -511,7 +558,7 @@
     recalcTotals(d, sc);
     saveScore(d.date, sc);
     scheduleAutoBackup();
-    renderCalendar(); renderRecent30();
+    renderCalendar(); renderRecent30(); renderPlan();
     renderExam(d);
   }
 
@@ -564,7 +611,7 @@
         localStorage.setItem(refKey(date), JSON.stringify({ text: text, at: Date.now() }));
         $("refSaved").textContent = "已保存：" + new Date().toLocaleString();
         renderSidebar();
-        renderCalendar(); renderRecent30();
+        renderCalendar(); renderRecent30(); renderPlan();
       } catch (e) { $("refSaved").textContent = "保存失败（浏览器存储不可用）"; }
     };
   }
@@ -655,7 +702,7 @@
           if (dd.ref) localStorage.setItem(refKey(d), JSON.stringify(dd.ref));
           if (dd.ans) localStorage.setItem(examAnsKey(d), JSON.stringify(dd.ans));
         });
-        renderSidebar(); updateProgress(); renderCalendar(); renderRecent30(); renderRecent30();
+        renderSidebar(); updateProgress(); renderCalendar(); renderRecent30(); renderPlan();
         if (currentDate) { renderExam(DAYS[currentDate]); renderReflection(currentDate); }
         alert("档案已导入：共恢复 " + Object.keys(data.days).length + " 天的数据");
         scheduleAutoBackup();
@@ -696,7 +743,7 @@
       });
     }
     if (!imported) { $("importMsg").textContent = "没识别到 ipd_ 开头的数据，请确认粘贴内容来自 DevTools 的 localStorage"; return; }
-    renderSidebar(); updateProgress(); renderCalendar(); renderRecent30(); renderRecent30();
+    renderSidebar(); updateProgress(); renderCalendar(); renderRecent30(); renderPlan();
     if (currentDate) { renderExam(DAYS[currentDate]); renderReflection(currentDate); }
     $("importMsg").textContent = "✅ 成功恢复 " + imported + " 条数据，已合并进本浏览器（原有数据不会被覆盖）";
     scheduleAutoBackup();
