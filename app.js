@@ -118,8 +118,10 @@
     var streak = computeStreak();
     var today = todayStr();
 
+    var dateMap = {};
     var months = {};
     MANIFEST.forEach(function (m) {
+      dateMap[m.date] = m;
       var mo = m.date.slice(0, 7);
       if (!months[mo]) months[mo] = [];
       months[mo].push(m.date);
@@ -142,13 +144,19 @@
       for (var i = 0; i < wd; i++) html += '<span class="cal-cell off"></span>';
       for (var d = 1; d <= dim; d++) {
         var dateStr = mo + "-" + (d < 10 ? "0" + d : d);
-        if (months[mo].indexOf(dateStr) < 0) { html += '<span class="cal-cell off">' + d + '</span>'; continue; }
+        var m2 = dateMap[dateStr];
+        if (!m2) { html += '<span class="cal-cell off">' + d + '</span>'; continue; }
         var lv = dayLevel(dateStr);
         var hasRef = !!localStorage.getItem(refKey(dateStr));
         var isToday = (dateStr === today);
         var sc = loadScore(dateStr);
-        var tip = "Day " + (DAYS[dateStr] ? DAYS[dateStr].day : "") + " · " + (sc && sc.percent != null ? "得分 " + sc.percent + "%" : (hasRef ? "已学" : "未学")) + (hasRef ? " · 有心得" : "");
-        html += '<button class="cal-cell l' + lv + (isToday ? " today" : "") + (hasRef ? " hasref" : "") + '" data-date="' + dateStr + '" title="' + tip + '">' + d + '</button>';
+        var topic = (DAYS[dateStr] && DAYS[dateStr].topicTitle) || m2.title || "";
+        var short = topic.length > 5 ? topic.slice(0, 5) + "…" : topic;   // 格子小，最多 5 字
+        var tip = "Day " + (DAYS[dateStr] ? DAYS[dateStr].day : "") + " · " + topic + " · " + (sc && sc.percent != null ? "得分 " + sc.percent + "%" : (hasRef ? "已学" : "未学")) + (hasRef ? " · 有心得" : "");
+        html += '<button class="cal-cell l' + lv + (isToday ? " today" : "") + (hasRef ? " hasref" : "") + '" data-date="' + dateStr + '" title="' + escapeHtml(tip) + '">' +
+          '<span class="cal-date">' + d + '</span>' +
+          (short ? '<span class="cal-topic">' + escapeHtml(short) + '</span>' : '') +
+          '</button>';
       }
       html += '</div></div>';
     });
