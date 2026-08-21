@@ -332,3 +332,41 @@ body {
 .cal-legend .lg.l3 { background: #8fd9a5; }
 .cal-legend .lg.ref { background: var(--amber); border-radius: 50%; width: 8px; height: 8px; }
 .cal-tip { margin-left: auto; }
+
+/* ---------- 30 天学习计划（来源 md，纯展示计划 + 叠加实际进度） ---------- */
+.plan-box {
+  background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 14px 16px 10px; margin-bottom: 14px; box-shadow: var(--shadow-sm);
+}
+.plan-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+.plan-title { font-size: 15px; font-weight: 700; color: var(--ink); }
+.plan-sub { font-size: 12px; color: var(--ink-soft); }
+.plan-phase {
+  font-size: 11.5px; font-weight: 700; color: var(--accent);
+  margin: 10px 0 5px; padding: 3px 10px; background: var(--bg);
+  border-radius: 999px; display: inline-block;
+}
+.plan-row {
+  display: grid; grid-template-columns: 56px 64px 1fr 56px; align-items: center; gap: 8px;
+  padding: 7px 10px; border-radius: 8px; font-size: 13px; margin-bottom: 3px;
+  border-left: 3px solid transparent;
+}
+.plan-row.clickable { cursor: pointer; transition: background .1s, transform .1s; }
+.plan-row.clickable:hover { background: var(--bg); transform: translateX(2px); }
+.plan-day { font-weight: 700; color: var(--ink-soft); font-size: 12.5px; }
+.plan-date { color: var(--ink-soft); font-size: 12px; font-variant-numeric: tabular-nums; }
+.plan-theme { color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.plan-status {
+  justify-self: end; font-size: 11.5px; font-weight: 700; padding: 2px 8px; border-radius: 999px; white-space: nowrap;
+}
+.plan-status.future { background: var(--bg); color: #aab2bf; }
+.plan-status.done { background: #e9f7ef; color: #2b8a3e; }
+.plan-status.today { background: var(--accent); color: #fff; }
+.plan-row.today { background: #eef5ff; border-left-color: var(--accent); }
+.plan-row.today .plan-day, .plan-row.today .plan-date { color: var(--accent); }
+.plan-row.done { border-left-color: #8fd9a5; }
+.plan-row.future { opacity: .62; }
+@media (max-width: 560px) {
+  .plan-row { grid-template-columns: 48px 52px 1fr 48px; gap: 6px; padding: 6px 8px; font-size: 12px; }
+  .plan-theme { font-size: 12px; }
+}
