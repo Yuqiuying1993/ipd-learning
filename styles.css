@@ -247,13 +247,20 @@ body {
 .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
 .cal-wd { font-size: 11px; color: var(--ink-soft); text-align: center; padding: 2px 0; }
 .cal-cell {
-  position: relative; border: none; border-radius: 8px; height: 52px;
+  position: relative; border: none; border-radius: 8px; height: 58px;
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px;
   font-size: 12.5px; cursor: pointer; background: var(--bg); color: var(--ink-soft); padding: 0; font-family: inherit;
   transition: transform .1s, box-shadow .1s; overflow: hidden;
 }
 .cal-date { font-size: 12.5px; font-weight: 600; line-height: 1.2; }
-.cal-topic { font-size: 10px; line-height: 1.25; max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; opacity: .85; padding: 0 2px; }
+.cal-topic { font-size: 10.5px; line-height: 1.2; max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; opacity: .85; padding: 0 2px; }
+.cal-score {
+  position: absolute; bottom: 3px; right: 4px;
+  font-size: 10.5px; font-weight: 800; line-height: 1;
+  background: rgba(255,255,255,.7); color: #0c4a1e;
+  padding: 1px 4px; border-radius: 4px;
+}
+.cal-cell.l2 .cal-score, .cal-cell.l3 .cal-score { display: inline-block; }
 .cal-cell:hover { transform: translateY(-1px); box-shadow: var(--shadow); }
 .cal-cell.l1 { background: #e9f7ef; color: #2b8a3e; }
 .cal-cell.l2 { background: #c3ecce; color: #2b8a3e; }
@@ -264,6 +271,54 @@ body {
 .cal-cell.hasref::after {
   content: ""; position: absolute; top: 3px; right: 3px;
   width: 6px; height: 6px; border-radius: 50%; background: var(--amber);
+}
+
+/* ---------- 近 30 天整体进度 ---------- */
+.recent30-box {
+  background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 14px 16px 12px; margin-bottom: 14px;
+  box-shadow: var(--shadow-sm);
+}
+.recent30-title { font-size: 15px; font-weight: 700; margin-bottom: 10px; color: var(--ink); }
+.recent30-grid {
+  display: grid; grid-template-columns: repeat(30, 1fr); gap: 4px; margin-bottom: 8px;
+}
+.recent30-cell {
+  position: relative; aspect-ratio: 1 / 1.15; min-height: 0;
+  border-radius: 6px; padding: 3px 2px 2px;
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+  background: var(--bg); border: 1px solid var(--line);
+  font-size: 10px; line-height: 1.1; color: var(--ink-soft);
+  transition: transform .1s;
+  overflow: hidden;
+}
+.recent30-cell:hover { transform: translateY(-1px); }
+.recent30-cell .r-date { font-weight: 700; font-size: 11px; line-height: 1.1; }
+.recent30-cell .r-score {
+  font-weight: 800; font-size: 12px; line-height: 1.1; margin-top: 2px;
+  background: rgba(255,255,255,.65); color: #0c4a1e;
+  padding: 1px 3px; border-radius: 3px;
+}
+.recent30-cell .r-topic {
+  font-size: 9px; opacity: .85; max-width: 100%; margin-top: 2px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 2px;
+}
+.recent30-cell.l1 { background: #e9f7ef; border-color: #c3ecce; color: #2b8a3e; }
+.recent30-cell.l2 { background: #c3ecce; border-color: #8fd9a5; color: #2b8a3e; }
+.recent30-cell.l3 { background: #8fd9a5; border-color: #2b8a3e; color: #0c4a1e; font-weight: 700; }
+.recent30-cell.today { box-shadow: inset 0 0 0 2px var(--accent); }
+.recent30-cell.inactive { opacity: .35; }
+.recent30-cell.hasref::after {
+  content: ""; position: absolute; top: 3px; right: 3px;
+  width: 4px; height: 4px; border-radius: 50%; background: var(--amber);
+}
+.recent30-stats {
+  font-size: 12px; color: var(--ink-soft); padding-top: 8px;
+  border-top: 1px dashed var(--line); display: flex; gap: 14px; flex-wrap: wrap;
+}
+.recent30-stats b { color: var(--accent); }
+@media (max-width: 900px) {
+  .recent30-cell .r-topic, .recent30-cell .r-score { display: none; }
 }
 .cal-legend {
   display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
