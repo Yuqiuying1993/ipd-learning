@@ -7,5 +7,9 @@ window.IPD_MANIFEST = [
   { date: "2026-08-17", day: 5, title: "IPD 的需求/Charter/CBB：需求怎么来、共用模块怎么沉淀复用", topicIndex: 4 },
   { date: "2026-08-18", day: 6, title: "采购在 IPD 的定位与早期介入 ESI 总览", topicIndex: 5 },
   { date: "2026-08-19", day: 7, title: "概念阶段采购活动：需求确认、供应商地图、长周期器件识别", topicIndex: 6 },
-  { date: "2026-08-20", day: 8, title: "计划阶段采购活动：优选库 PPL、可采购性设计 DFP、应式成本早期介入", topicIndex: 7 }
+  { date: "2026-08-20", day: 8, title: "计划阶段采购活动：优选库 PPL、可采购性设计 DFP、应式成本早期介入", topicIndex: 7 },
+  { date: "2026-08-21", day: 9, title: "开发/验证阶段采购活动：样品、验证、小批量、供应商准入", topicIndex: 8 },
+  { date: "2026-08-22", day: 10, title: "发布/量产阶段采购活动：量产爬坡、保供、供应商放量", topicIndex: 9 },
+  { date: "2026-08-23", day: 11, title: "优选库 PPL 与归一化：降本/保供/质量的底层逻辑", topicIndex: 10 },
+  { date: "2026-08-24", day: 12, title: "早期供应商参与 ESI 的边界与风险（信息保密、何时拉供应商）", topicIndex: 11 }
 ];
