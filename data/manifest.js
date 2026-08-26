@@ -12,5 +12,6 @@ window.IPD_MANIFEST = [
   { date: "2026-08-22", day: 10, title: "发布/量产阶段采购活动：量产爬坡、保供、供应商放量", topicIndex: 9 },
   { date: "2026-08-23", day: 11, title: "优选库 PPL 与归一化：降本/保供/质量的底层逻辑", topicIndex: 10 },
   { date: "2026-08-24", day: 12, title: "早期供应商参与 ESI 的边界与风险（信息保密、何时拉供应商）", topicIndex: 11 },
-  { date: "2026-08-25", day: 13, title: "应式成本 Should-cost 与价格公允：IPD 里成本怎么算清", topicIndex: 12 }
+  { date: "2026-08-25", day: 13, title: "应式成本 Should-cost 与价格公允：IPD 里成本怎么算清", topicIndex: 12 },
+  { date: "2026-08-26", day: 14, title: "采购在 IPD 的风控前置：授权/制衡/合规红线植入流程", topicIndex: 13 }
 ];
