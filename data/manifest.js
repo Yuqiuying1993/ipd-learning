@@ -13,5 +13,7 @@ window.IPD_MANIFEST = [
   { date: "2026-08-23", day: 11, title: "优选库 PPL 与归一化：降本/保供/质量的底层逻辑", topicIndex: 10 },
   { date: "2026-08-24", day: 12, title: "早期供应商参与 ESI 的边界与风险（信息保密、何时拉供应商）", topicIndex: 11 },
   { date: "2026-08-25", day: 13, title: "应式成本 Should-cost 与价格公允：IPD 里成本怎么算清", topicIndex: 12 },
-  { date: "2026-08-26", day: 14, title: "采购在 IPD 的风控前置：授权/制衡/合规红线植入流程", topicIndex: 13 }
+  { date: "2026-08-26", day: 14, title: "采购在 IPD 的风控前置：授权/制衡/合规红线植入流程", topicIndex: 13 },
+  { date: "2026-08-27", day: 15, title: "华为 IPD 实战深读：引入过程、踩坑、与别家区别、现状", topicIndex: 14 },
+  { date: "2026-08-28", day: 16, title: "华三/宁德时代 IPD 对标：不同行业怎么裁剪", topicIndex: 15 }
 ];
