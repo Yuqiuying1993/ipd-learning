@@ -19,5 +19,6 @@ window.IPD_MANIFEST = [
   { date: "2026-08-29", day: 17, title: "典型案例深读（一）：某产品从概念到量产的采购全景", topicIndex: 16 },
   { date: "2026-08-30", day: 18, title: "典型案例深读（二）：IPD 缺失导致的损失 / 审计复盘", topicIndex: 17 },
   { date: "2026-08-31", day: 19, title: "IPD × 采购 知识地图总复习（审计人该看哪、问哪）", topicIndex: 18 },
-  { date: "2026-09-01", day: 20, title: "综合大考 + 学习复盘（覆盖全周期知识点）", topicIndex: 19 }
+  { date: "2026-09-01", day: 20, title: "综合大考 + 学习复盘（覆盖全周期知识点）", topicIndex: 19 },
+  { date: "2026-09-02", day: 21, title: "什么是 IPD？5W1H 全景 + 为什么大厂都在用（华为/华三/宁德对标）【第二轮·审计实战视角】", topicIndex: 0 }
 ];
