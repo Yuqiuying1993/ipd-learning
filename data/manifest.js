@@ -22,5 +22,9 @@ window.IPD_MANIFEST = [
   { date: "2026-09-01", day: 20, title: "综合大考 + 学习复盘（覆盖全周期知识点）", topicIndex: 19 },
   { date: "2026-09-02", day: 21, title: "什么是 IPD？5W1H 全景 + 为什么大厂都在用（华为/华三/宁德对标）【第二轮·审计实战视角】", topicIndex: 0 },
   { date: "2026-09-03", day: 22, title: "IPD 六大阶段全景：概念/计划/开发/验证/发布/生命周期（各阶段是什么、输出物、区别）【第二轮·审计实战视角】", topicIndex: 1 },
-  { date: "2026-09-04", day: 23, title: "IPD 核心跨职能团队：IPMT/PDT/各功能代表（SE、采购代表、制造代表、财务代表）角色、职责分离【第二轮·审计实战视角】", topicIndex: 2 }
+  { date: "2026-09-04", day: 23, title: "IPD 核心跨职能团队：IPMT/PDT/各功能代表（SE、采购代表、制造代表、财务代表）角色、职责分离【第二轮·审计实战视角】", topicIndex: 2 },
+  { date: "2026-09-05", day: 24, title: "决策评审 DCP 与技术评审 TR：节点、输出物、如何决策（控制点）【第二轮·审计实战视角】", topicIndex: 3 },
+  { date: "2026-09-06", day: 25, title: "IPD 的需求/Charter/CBB：需求怎么来、共用模块怎么沉淀复用【第二轮·审计实战视角】", topicIndex: 4 },
+  { date: "2026-09-07", day: 26, title: "采购在 IPD 的定位与早期介入 ESI 总览【第二轮·审计实战视角】", topicIndex: 5 },
+  { date: "2026-09-08", day: 27, title: "概念阶段采购活动：需求确认、供应商地图、长周期器件识别【第二轮·审计实战视角】", topicIndex: 6 }
 ];
