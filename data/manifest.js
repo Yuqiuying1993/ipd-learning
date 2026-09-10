@@ -26,5 +26,7 @@ window.IPD_MANIFEST = [
   { date: "2026-09-05", day: 24, title: "决策评审 DCP 与技术评审 TR：节点、输出物、如何决策（控制点）【第二轮·审计实战视角】", topicIndex: 3 },
   { date: "2026-09-06", day: 25, title: "IPD 的需求/Charter/CBB：需求怎么来、共用模块怎么沉淀复用【第二轮·审计实战视角】", topicIndex: 4 },
   { date: "2026-09-07", day: 26, title: "采购在 IPD 的定位与早期介入 ESI 总览【第二轮·审计实战视角】", topicIndex: 5 },
-  { date: "2026-09-08", day: 27, title: "概念阶段采购活动：需求确认、供应商地图、长周期器件识别【第二轮·审计实战视角】", topicIndex: 6 }
+  { date: "2026-09-08", day: 27, title: "概念阶段采购活动：需求确认、供应商地图、长周期器件识别【第二轮·审计实战视角】", topicIndex: 6 },
+  { date: "2026-09-09", day: 28, title: "计划阶段采购活动：优选库 PPL、可采购性设计 DFP、应式成本早期介入【第二轮·审计实战视角】", topicIndex: 7 },
+  { date: "2026-09-10", day: 29, title: "开发/验证阶段采购活动：样品、验证、小批量、供应商准入【第二轮·审计实战视角】", topicIndex: 8 }
 ];
