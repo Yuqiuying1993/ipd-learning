@@ -35,5 +35,6 @@ window.IPD_MANIFEST = [
   { date: "2026-09-14", day: 33, title: "应式成本 Should-cost 与价格公允：IPD 里成本怎么算清【第二轮·审计实战视角】", topicIndex: 12 },
   { date: "2026-09-15", day: 34, title: "采购在 IPD 的风控前置：授权/制衡/合规红线植入流程【第二轮·审计实战视角】", topicIndex: 13 },
   { date: "2026-09-16", day: 35, title: "华为 IPD 实战深读：引入过程、踩坑、与别家区别、现状【第二轮·审计实战视角】", topicIndex: 14 },
-  { date: "2026-09-17", day: 36, title: "华三/宁德时代 IPD 对标：不同行业怎么裁剪【第二轮·审计实战视角】", topicIndex: 15 }
+  { date: "2026-09-17", day: 36, title: "华三/宁德时代 IPD 对标：不同行业怎么裁剪【第二轮·审计实战视角】", topicIndex: 15 },
+  { date: "2026-09-18", day: 37, title: "典型案例深读（一）：某产品从概念到量产的采购全景【第二轮·审计实战视角】", topicIndex: 16 }
 ];
